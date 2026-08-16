@@ -1,0 +1,29 @@
+name: Fetch HITCON Ecovacs PDF
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fetch-hitcon-ecovacs.yml'
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download PDF
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-delay 2 \
+            -o HITCON-CMT-2024_Ecovacs.pdf \
+            'https://dontvacuum.me/talks/HITCON2024/HITCON-CMT-2024_Ecovacs.pdf'
+          test -s HITCON-CMT-2024_Ecovacs.pdf
+          file HITCON-CMT-2024_Ecovacs.pdf
+
+      - name: Create ZIP
+        run: zip -9 HITCON-CMT-2024_Ecovacs.zip HITCON-CMT-2024_Ecovacs.pdf
+
+      - name: Upload ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HITCON-CMT-2024_Ecovacs
+          path: HITCON-CMT-2024_Ecovacs.zip
+          if-no-files-found: error
