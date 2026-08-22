@@ -5,15 +5,19 @@ on:
     paths:
       - '.github/workflows/x9-broker-probe-temp.yml'
 
+permissions:
+  contents: write
+
 jobs:
   probe:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - uses: actions/checkout@v4
       - name: Probe ECOVACS MQTT endpoints without credentials
         shell: bash
         run: |
-          python3 - <<'PY'
+          python3 - <<'PY' | tee x9_broker_probe_result.txt
           import socket, ssl, hashlib, struct, time
 
           HOSTS = [
@@ -97,3 +101,11 @@ jobs:
                       except Exception as e:
                           print(label, 'ERROR', type(e).__name__, repr(e), flush=True)
           PY
+      - name: Commit probe result
+        shell: bash
+        run: |
+          git config user.name 'x9-probe-bot'
+          git config user.email 'x9-probe-bot@users.noreply.github.com'
+          git add x9_broker_probe_result.txt
+          git commit -m 'temp: X9 broker probe result' || exit 0
+          git push
