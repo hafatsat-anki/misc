@@ -1,82 +1,20 @@
 ===== HOST mq.ecouser.net =====
-DNS ['121.37.158.147', '60.204.199.232', '115.175.32.155', '1.94.65.112', '123.60.91.28', '124.70.187.140']
---- backend 121.37.158.147 ---
-proto=3.1.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=none SENT 29
-proto=3.1.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=dummy SENT 76
-proto=3.1.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=none SENT 31
-proto=3.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=dummy SENT 78
-proto=3.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
---- backend 60.204.199.232 ---
-proto=3.1.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=none SENT 29
-proto=3.1.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=dummy SENT 76
-proto=3.1.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=none SENT 31
-proto=3.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=dummy SENT 78
-proto=3.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
+DNS ['124.70.187.140', '115.175.32.155', '1.94.65.112', '60.204.199.232', '121.37.158.147', '123.60.91.28']
+--- backend 124.70.187.140 ---
+short bytes=99 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+long-approx-473 bytes=465 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+long-very-large bytes=848 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
 --- backend 115.175.32.155 ---
-proto=3.1.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=none SENT 29
-proto=3.1.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=dummy SENT 76
-proto=3.1.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=none SENT 31
-proto=3.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=dummy SENT 78
-proto=3.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
+short bytes=99 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+long-approx-473 bytes=465 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+long-very-large bytes=848 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
 ===== HOST jmq-ngiot-cn.dc.cn.ecouser.net =====
-DNS ['115.175.32.155', '1.94.65.112', '60.204.199.232', '124.70.187.140', '123.60.91.28', '121.37.158.147']
---- backend 115.175.32.155 ---
-proto=3.1.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=none SENT 29
-proto=3.1.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=dummy SENT 76
-proto=3.1.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=none SENT 31
-proto=3.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=dummy SENT 78
-proto=3.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
+DNS ['1.94.65.112', '60.204.199.232', '121.37.158.147', '123.60.91.28', '124.70.187.140', '115.175.32.155']
 --- backend 1.94.65.112 ---
-proto=3.1.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=none SENT 29
-proto=3.1.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=dummy SENT 76
-proto=3.1.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=none SENT 31
-proto=3.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=dummy SENT 78
-proto=3.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
+short bytes=99 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+long-approx-473 bytes=465 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+long-very-large bytes=848 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
 --- backend 60.204.199.232 ---
-proto=3.1.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=none SENT 29
-proto=3.1.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1.1 creds=dummy SENT 76
-proto=3.1.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=none TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=none SENT 31
-proto=3.1 creds=none RECV CONNACK flags=0 rc=5 hex=20020005
-proto=3.1 creds=dummy TLS TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5
-proto=3.1 creds=dummy SENT 78
-proto=3.1 creds=dummy RECV CONNACK flags=0 rc=5 hex=20020005
+short bytes=99 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+long-approx-473 bytes=465 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+long-very-large bytes=848 sha256=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
