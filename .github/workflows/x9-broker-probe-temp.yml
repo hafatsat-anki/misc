@@ -14,92 +14,57 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Probe ECOVACS MQTT endpoints without credentials
+      - name: Probe ECOVACS MQTT long CONNECT shape
         shell: bash
         run: |
           python3 - <<'PY' | tee x9_broker_probe_result.txt
-          import socket, ssl, hashlib, struct, time
+          import socket, ssl, hashlib, struct
 
-          HOSTS = [
-              'mq.ecouser.net',
-              'jmq-ngiot-cn.dc.cn.ecouser.net',
-          ]
-
+          HOSTS=['mq.ecouser.net','jmq-ngiot-cn.dc.cn.ecouser.net']
           def encstr(s):
-              b = s.encode('utf-8')
-              return struct.pack('!H', len(b)) + b
-
+              b=s.encode(); return struct.pack('!H',len(b))+b
           def rem_len(n):
-              out = bytearray()
+              out=bytearray()
               while True:
-                  d = n % 128
-                  n //= 128
-                  if n:
-                      d |= 0x80
+                  d=n%128; n//=128
+                  if n: d|=0x80
                   out.append(d)
-                  if not n:
-                      return bytes(out)
-
-          def connect_packet(proto='3.1.1', creds=False, client_id='x9-safe-anon-probe'):
-              if proto == '3.1.1':
-                  vh = encstr('MQTT') + bytes([4])
-              else:
-                  vh = encstr('MQIsdp') + bytes([3])
-              flags = 0x02
-              payload = encstr(client_id)
-              if creds:
-                  flags |= 0xC0
-                  payload += encstr('invalid-x9-probe-user') + encstr('invalid-x9-probe-token')
-              vh += bytes([flags]) + struct.pack('!H', 60)
-              body = vh + payload
-              return bytes([0x10]) + rem_len(len(body)) + body
-
-          def describe(resp):
-              if not resp:
-                  return 'NO_BYTES'
-              h = resp.hex()
-              if len(resp) >= 4 and resp[0] == 0x20 and resp[1] == 0x02:
-                  return f'CONNACK flags={resp[2]} rc={resp[3]} hex={h}'
-              return f'PACKET first=0x{resp[0]:02x} len={len(resp)} hex={h}'
-
+                  if not n: return bytes(out)
+          def pkt(user,pwd,res,proto=4):
+              cid=f'{user}@ecouser/{res}'
+              if proto==4: vh=encstr('MQTT')+bytes([4])
+              else: vh=encstr('MQIsdp')+bytes([3])
+              vh+=bytes([0xC2])+struct.pack('!H',60)
+              body=vh+encstr(cid)+encstr(user)+encstr(pwd)
+              return bytes([0x10])+rem_len(len(body))+body
+          tests=[]
+          # Short control, then two long shapes around the 473-byte packet seen on the real session.
+          tests.append(('short',pkt('u'*16,'p'*24,'r'*16,4)))
+          tests.append(('long-approx-473',pkt('u'*32,'p'*341,'r'*32,4)))
+          tests.append(('long-very-large',pkt('u'*40,'p'*700,'r'*40,4)))
           for host in HOSTS:
-              print(f'===== HOST {host} =====', flush=True)
-              try:
-                  infos = socket.getaddrinfo(host, 443, type=socket.SOCK_STREAM)
-                  ips=[]
-                  for inf in infos:
-                      ip=inf[4][0]
-                      if ':' not in ip and ip not in ips:
-                          ips.append(ip)
-                  print('DNS', ips, flush=True)
-              except Exception as e:
-                  print('DNS_ERROR', repr(e), flush=True)
-                  continue
-
-              for ip in ips[:3]:
-                  print(f'--- backend {ip} ---', flush=True)
-                  for proto, creds in [('3.1.1',False),('3.1.1',True),('3.1',False),('3.1',True)]:
-                      label=f'proto={proto} creds={"dummy" if creds else "none"}'
-                      raw = connect_packet(proto, creds, client_id=f'x9-probe-{int(time.time()*1000)%1000000}')
+              print('===== HOST',host,'=====')
+              ips=[]
+              for x in socket.getaddrinfo(host,443,type=socket.SOCK_STREAM):
+                  ip=x[4][0]
+                  if ':' not in ip and ip not in ips: ips.append(ip)
+              print('DNS',ips)
+              for ip in ips[:2]:
+                  print('--- backend',ip,'---')
+                  for label,raw in tests:
                       try:
-                          ctx=ssl.create_default_context()
-                          ctx.check_hostname=False
-                          ctx.verify_mode=ssl.CERT_NONE
-                          with socket.create_connection((ip,443), timeout=5) as s:
-                              with ctx.wrap_socket(s, server_hostname=host) as ss:
-                                  cert=ss.getpeercert(binary_form=True)
-                                  fp=hashlib.sha256(cert).hexdigest()
-                                  print(label, 'TLS', ss.version(), 'cipher='+ss.cipher()[0], 'sha256='+fp, flush=True)
-                                  ss.settimeout(5)
-                                  ss.sendall(raw)
-                                  print(label, 'SENT', len(raw), flush=True)
-                                  try:
-                                      resp=ss.recv(64)
-                                      print(label, 'RECV', describe(resp), flush=True)
-                                  except socket.timeout:
-                                      print(label, 'RECV TIMEOUT_NO_BYTES', flush=True)
-                      except Exception as e:
-                          print(label, 'ERROR', type(e).__name__, repr(e), flush=True)
+                          ctx=ssl.create_default_context(); ctx.check_hostname=False; ctx.verify_mode=ssl.CERT_NONE
+                          with socket.create_connection((ip,443),timeout=5) as s:
+                              with ctx.wrap_socket(s,server_hostname=host) as ss:
+                                  fp=hashlib.sha256(ss.getpeercert(binary_form=True)).hexdigest()
+                                  ss.settimeout(5); ss.sendall(raw)
+                                  try: resp=ss.recv(64)
+                                  except socket.timeout: resp=b''
+                                  if len(resp)>=4 and resp[:2]==b'\x20\x02': desc=f'CONNACK rc={resp[3]} hex={resp.hex()}'
+                                  elif resp: desc=f'PACKET {resp.hex()}'
+                                  else: desc='TIMEOUT_NO_BYTES'
+                                  print(label,'bytes='+str(len(raw)),'sha256='+fp,'RECV',desc)
+                      except Exception as e: print(label,'ERROR',type(e).__name__,repr(e))
           PY
       - name: Commit probe result
         shell: bash
@@ -107,5 +72,5 @@ jobs:
           git config user.name 'x9-probe-bot'
           git config user.email 'x9-probe-bot@users.noreply.github.com'
           git add x9_broker_probe_result.txt
-          git commit -m 'temp: X9 broker probe result' || exit 0
+          git commit -m 'temp: X9 broker long-connect result' || exit 0
           git push
