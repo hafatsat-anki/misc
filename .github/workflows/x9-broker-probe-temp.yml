@@ -14,57 +14,66 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Probe ECOVACS MQTT long CONNECT shape
+      - name: Probe official APK CN MQTT endpoint without real credentials
         shell: bash
         run: |
           python3 - <<'PY' | tee x9_broker_probe_result.txt
-          import socket, ssl, hashlib, struct
-
-          HOSTS=['mq.ecouser.net','jmq-ngiot-cn.dc.cn.ecouser.net']
-          def encstr(s):
+          import socket,ssl,hashlib,struct,json
+          HOSTS=['jmq-ngiot-cn.dc.robotcn.ecouser.net','jmq-ngiot-cn.dc.cn.ecouser.net','mq.ecouser.net']
+          def es(s):
               b=s.encode(); return struct.pack('!H',len(b))+b
-          def rem_len(n):
-              out=bytearray()
-              while True:
-                  d=n%128; n//=128
-                  if n: d|=0x80
-                  out.append(d)
-                  if not n: return bytes(out)
-          def pkt(user,pwd,res,proto=4):
-              cid=f'{user}@ecouser/{res}'
-              if proto==4: vh=encstr('MQTT')+bytes([4])
-              else: vh=encstr('MQIsdp')+bytes([3])
-              vh+=bytes([0xC2])+struct.pack('!H',60)
-              body=vh+encstr(cid)+encstr(user)+encstr(pwd)
-              return bytes([0x10])+rem_len(len(body))+body
-          tests=[]
-          # Short control, then two long shapes around the 473-byte packet seen on the real session.
-          tests.append(('short',pkt('u'*16,'p'*24,'r'*16,4)))
-          tests.append(('long-approx-473',pkt('u'*32,'p'*341,'r'*32,4)))
-          tests.append(('long-very-large',pkt('u'*40,'p'*700,'r'*40,4)))
+          def rl(n):
+              o=bytearray()
+              while 1:
+                  d=n%128;n//=128
+                  if n:d|=128
+                  o.append(d)
+                  if not n:return bytes(o)
+          def packet(style):
+              fake_uid='0123456789abcdef0123456789abcdef'
+              fake_res='abcdef0123456789abcdef0123456789'
+              fake_pwd='x'*220
+              if style=='official-apk':
+                  cid=f'{fake_uid}@USER/{fake_res}'
+                  reserved=json.dumps({'fv':'1.0.0','wv':'v2.1.0'},separators=(',',':'))
+                  custom=json.dumps({'app':'user','st':10},separators=(',',':'))
+                  user='A01AG11560A09HB3V0205`'+reserved+'`'+custom
+              elif style=='old-client':
+                  cid=f'{fake_uid}@ecouser/{fake_res}'
+                  user=fake_uid
+              else:
+                  cid=f'{fake_uid}@USER/{fake_res}'
+                  user=fake_uid
+              vh=es('MQTT')+bytes([4,0xC2])+struct.pack('!H',60)
+              body=vh+es(cid)+es(user)+es(fake_pwd)
+              return bytes([0x10])+rl(len(body))+body,cid,user
           for host in HOSTS:
               print('===== HOST',host,'=====')
-              ips=[]
-              for x in socket.getaddrinfo(host,443,type=socket.SOCK_STREAM):
-                  ip=x[4][0]
-                  if ':' not in ip and ip not in ips: ips.append(ip)
-              print('DNS',ips)
-              for ip in ips[:2]:
+              try:
+                  ips=[]
+                  for x in socket.getaddrinfo(host,443,type=socket.SOCK_STREAM):
+                      ip=x[4][0]
+                      if ':' not in ip and ip not in ips:ips.append(ip)
+                  print('DNS',ips)
+              except Exception as e:
+                  print('DNS_ERROR',repr(e));continue
+              for ip in ips[:3]:
                   print('--- backend',ip,'---')
-                  for label,raw in tests:
+                  for style in ['official-apk','user-cid-simple-user','old-client']:
+                      raw,cid,user=packet(style)
                       try:
-                          ctx=ssl.create_default_context(); ctx.check_hostname=False; ctx.verify_mode=ssl.CERT_NONE
+                          ctx=ssl.create_default_context();ctx.check_hostname=False;ctx.verify_mode=ssl.CERT_NONE
                           with socket.create_connection((ip,443),timeout=5) as s:
                               with ctx.wrap_socket(s,server_hostname=host) as ss:
                                   fp=hashlib.sha256(ss.getpeercert(binary_form=True)).hexdigest()
-                                  ss.settimeout(5); ss.sendall(raw)
-                                  try: resp=ss.recv(64)
-                                  except socket.timeout: resp=b''
-                                  if len(resp)>=4 and resp[:2]==b'\x20\x02': desc=f'CONNACK rc={resp[3]} hex={resp.hex()}'
-                                  elif resp: desc=f'PACKET {resp.hex()}'
-                                  else: desc='TIMEOUT_NO_BYTES'
-                                  print(label,'bytes='+str(len(raw)),'sha256='+fp,'RECV',desc)
-                      except Exception as e: print(label,'ERROR',type(e).__name__,repr(e))
+                                  ss.settimeout(5);ss.sendall(raw)
+                                  try:r=ss.recv(64)
+                                  except socket.timeout:r=b''
+                                  if len(r)>=4 and r[:2]==b'\x20\x02':desc=f'CONNACK rc={r[3]} hex={r.hex()}'
+                                  elif r:desc='PACKET '+r.hex()
+                                  else:desc='TIMEOUT_NO_BYTES'
+                                  print(style,'bytes='+str(len(raw)),'cidShape='+cid[32:48],'userLen='+str(len(user)),'cert='+fp,'RECV',desc)
+                      except Exception as e:print(style,'ERROR',type(e).__name__,repr(e))
           PY
       - name: Commit probe result
         shell: bash
@@ -72,5 +81,5 @@ jobs:
           git config user.name 'x9-probe-bot'
           git config user.email 'x9-probe-bot@users.noreply.github.com'
           git add x9_broker_probe_result.txt
-          git commit -m 'temp: X9 broker long-connect result' || exit 0
+          git commit -m 'temp: X9 official APK endpoint probe result' || exit 0
           git push
