@@ -1,42 +1,19 @@
-===== HOST jmq-ngiot-cn.dc.robotcn.ecouser.net =====
-DNS ['124.70.187.140', '115.175.32.155', '1.94.65.112', '60.204.199.232', '121.37.158.147', '123.60.91.28']
---- backend 124.70.187.140 ---
-official-apk bytes=382 cidShape=@USER/abcdef0123 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
-user-cid-simple-user bytes=341 cidShape=@USER/abcdef0123 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-old-client bytes=344 cidShape=@ecouser/abcdef0 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
---- backend 115.175.32.155 ---
-official-apk bytes=382 cidShape=@USER/abcdef0123 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
-user-cid-simple-user bytes=341 cidShape=@USER/abcdef0123 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-old-client bytes=344 cidShape=@ecouser/abcdef0 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
---- backend 1.94.65.112 ---
-official-apk bytes=382 cidShape=@USER/abcdef0123 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
-user-cid-simple-user bytes=341 cidShape=@USER/abcdef0123 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-old-client bytes=344 cidShape=@ecouser/abcdef0 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-===== HOST jmq-ngiot-cn.dc.cn.ecouser.net =====
-DNS ['60.204.199.232', '121.37.158.147', '123.60.91.28', '115.175.32.155', '124.70.187.140', '1.94.65.112']
---- backend 60.204.199.232 ---
-official-apk bytes=382 cidShape=@USER/abcdef0123 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
-user-cid-simple-user bytes=341 cidShape=@USER/abcdef0123 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-old-client bytes=344 cidShape=@ecouser/abcdef0 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
---- backend 121.37.158.147 ---
-official-apk bytes=382 cidShape=@USER/abcdef0123 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
-user-cid-simple-user bytes=341 cidShape=@USER/abcdef0123 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-old-client bytes=344 cidShape=@ecouser/abcdef0 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
---- backend 123.60.91.28 ---
-official-apk bytes=382 cidShape=@USER/abcdef0123 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
-user-cid-simple-user bytes=341 cidShape=@USER/abcdef0123 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-old-client bytes=344 cidShape=@ecouser/abcdef0 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-===== HOST mq.ecouser.net =====
-DNS ['1.94.65.112', '60.204.199.232', '123.60.91.28', '121.37.158.147', '124.70.187.140', '115.175.32.155']
---- backend 1.94.65.112 ---
-official-apk bytes=382 cidShape=@USER/abcdef0123 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
-user-cid-simple-user bytes=341 cidShape=@USER/abcdef0123 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-old-client bytes=344 cidShape=@ecouser/abcdef0 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
---- backend 60.204.199.232 ---
-official-apk bytes=382 cidShape=@USER/abcdef0123 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
-user-cid-simple-user bytes=341 cidShape=@USER/abcdef0123 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-old-client bytes=344 cidShape=@ecouser/abcdef0 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
---- backend 123.60.91.28 ---
-official-apk bytes=382 cidShape=@USER/abcdef0123 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
-user-cid-simple-user bytes=341 cidShape=@USER/abcdef0123 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
-old-client bytes=344 cidShape=@ecouser/abcdef0 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+HOST jmq-ngiot-cn.dc.robotcn.ecouser.net DNS ['1.94.65.112', '124.70.187.140', '121.37.158.147', '60.204.199.232', '123.60.91.28', '115.175.32.155']
+--- 1.94.65.112 ---
+base64-no-nl-app-st bytes=404 userLen=95 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+base64-nl-app-st bytes=406 userLen=97 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+base64-no-nl-st-app bytes=404 userLen=95 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+raw-control bytes=382 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
+simple-control bytes=341 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+--- 124.70.187.140 ---
+base64-no-nl-app-st bytes=404 userLen=95 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+base64-nl-app-st bytes=406 userLen=97 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+base64-no-nl-st-app bytes=404 userLen=95 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+raw-control bytes=382 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
+simple-control bytes=341 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+--- 121.37.158.147 ---
+base64-no-nl-app-st bytes=404 userLen=95 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+base64-nl-app-st bytes=406 userLen=97 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+base64-no-nl-st-app bytes=404 userLen=95 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
+raw-control bytes=382 userLen=73 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV TIMEOUT_NO_BYTES
+simple-control bytes=341 userLen=32 cert=4c77acbcbe3c24b8f5e91ba5534dc54ba10ebea2a46a56c6bcb6b969de79ded5 RECV CONNACK rc=5 hex=20020005
