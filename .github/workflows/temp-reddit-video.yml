@@ -13,13 +13,11 @@ jobs:
         run: |
           mkdir -p out
           BASE='https://v.redd.it/pkchjyr4a4nh1'
-          curl -fL "$BASE/DASH_720.mp4?source=fallback" -o video.mp4 || curl -fL "$BASE/DASH_480.mp4?source=fallback" -o video.mp4 || curl -fL "$BASE/DASH_360.mp4?source=fallback" -o video.mp4
-          curl -fL "$BASE/DASH_AUDIO_128.mp4?source=fallback" -o audio.mp4 || curl -fL "$BASE/audio" -o audio.mp4 || true
-          if [ -s audio.mp4 ]; then
-            ffmpeg -y -i video.mp4 -i audio.mp4 -c copy 'out/GPT-5.6_Sol_vs_Claude_Fable_5.1.mp4'
-          else
-            cp video.mp4 'out/GPT-5.6_Sol_vs_Claude_Fable_5.1.mp4'
-          fi
+          UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/152 Safari/537.36'
+          REF='https://www.reddit.com/'
+          curl -A "$UA" -e "$REF" -fL "$BASE/DASH_720.mp4?source=fallback" -o video.mp4 || curl -A "$UA" -e "$REF" -fL "$BASE/DASH_480.mp4?source=fallback" -o video.mp4 || curl -A "$UA" -e "$REF" -fL "$BASE/DASH_360.mp4?source=fallback" -o video.mp4
+          curl -A "$UA" -e "$REF" -fL "$BASE/DASH_AUDIO_128.mp4?source=fallback" -o audio.mp4 || curl -A "$UA" -e "$REF" -fL "$BASE/audio" -o audio.mp4 || true
+          if [ -s audio.mp4 ]; then ffmpeg -y -i video.mp4 -i audio.mp4 -c copy 'out/GPT-5.6_Sol_vs_Claude_Fable_5.1.mp4'; else cp video.mp4 'out/GPT-5.6_Sol_vs_Claude_Fable_5.1.mp4'; fi
           ls -lh out
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
