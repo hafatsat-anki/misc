@@ -1,0 +1,24 @@
+name: temp-reddit-video
+
+on:
+  push:
+    branches:
+      - temp-reddit-video-20260903
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Reddit video
+        run: |
+          python -m pip install -q yt-dlp
+          mkdir -p out
+          yt-dlp --no-playlist --merge-output-format mp4 -o 'out/GPT-5.6_Sol_vs_Claude_Fable_5.1.%(ext)s' 'https://www.reddit.com/r/OpenAI/comments/1w5bxon/gpt56_sol_vs_claude_fable_51/'
+          ls -lh out
+      - name: Upload video artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: reddit-video
+          path: out/*.mp4
+          compression-level: 0
+          retention-days: 1
