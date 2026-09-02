@@ -9,11 +9,17 @@ jobs:
   download:
     runs-on: ubuntu-latest
     steps:
-      - name: Download Reddit video
+      - name: Download Reddit media directly
         run: |
-          python -m pip install -q yt-dlp
           mkdir -p out
-          yt-dlp --no-playlist --merge-output-format mp4 -o 'out/GPT-5.6_Sol_vs_Claude_Fable_5.1.%(ext)s' 'https://www.reddit.com/r/OpenAI/comments/1w5bxon/gpt56_sol_vs_claude_fable_51/'
+          BASE='https://v.redd.it/pkchjyr4a4nh1'
+          curl -fL "$BASE/DASH_720.mp4?source=fallback" -o video.mp4 || curl -fL "$BASE/DASH_480.mp4?source=fallback" -o video.mp4 || curl -fL "$BASE/DASH_360.mp4?source=fallback" -o video.mp4
+          curl -fL "$BASE/DASH_AUDIO_128.mp4?source=fallback" -o audio.mp4 || curl -fL "$BASE/audio" -o audio.mp4 || true
+          if [ -s audio.mp4 ]; then
+            ffmpeg -y -i video.mp4 -i audio.mp4 -c copy 'out/GPT-5.6_Sol_vs_Claude_Fable_5.1.mp4'
+          else
+            cp video.mp4 'out/GPT-5.6_Sol_vs_Claude_Fable_5.1.mp4'
+          fi
           ls -lh out
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
